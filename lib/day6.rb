@@ -27,6 +27,29 @@ class Day6
     baby_fish.times { new_fish << 8 }
     new_fish
   end
+
+  def self.count_all_fish(fish_arr, days)
+    fish_bucket = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    fish_arr.each do |fish|
+      fish_bucket[fish] += 1
+    end
+
+    days.times do
+      baby_fish = fish_bucket[0]
+
+      (1 .. 8).each do |i|
+        fish_bucket[i - 1] = fish_bucket[i]
+      end
+
+      fish_bucket[6] += baby_fish
+
+      fish_bucket[8] = baby_fish
+    end
+
+    fish_bucket.sum
+  end
 end
 
 #puts Day6.add_days(Day6.load_data('../data/JoDay6.txt'), 80).size
+puts Day6.count_all_fish(Day6.load_data('../data/JoDay6.txt'), 256)
