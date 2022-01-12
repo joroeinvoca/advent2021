@@ -21,7 +21,25 @@ class Day7
     end
     fuel_total
   end
+
+  # https://www.quora.com/Is-there-a-factorial-function-but-for-addition
+  def self.exp_fuel_for_pos(crabs, position)
+    fuel_total = 0
+    for i in 0 .. crabs.size - 1 do
+      steps = (crabs[i] - position).abs
+      fuel_total += (steps * (steps + 1)) / 2
+    end
+    fuel_total
+  end
+
+  def self.exp_fuel_for_best_pos(crabs)
+    fuel_totals = []
+    for i in 0 .. crabs.size - 1 do
+      fuel_totals << exp_fuel_for_pos(crabs, i)
+    end
+    fuel_totals.min
+  end
 end
 
-crabs = Day7.load_data('../data/JoDay7.txt')
-puts Day7.fuel_for_best_pos(crabs)
+#crabs = Day7.load_data('../data/JoDay7.txt')
+#puts Day7.fuel_for_best_pos(crabs)
