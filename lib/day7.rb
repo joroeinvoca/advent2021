@@ -23,5 +23,5 @@ class Day7
   end
 end
 
-#crabs = Day7.load_data('../data/JoDay7.txt')
-#puts Day7.fuel_for_best_pos(crabs)
+crabs = Day7.load_data('../data/JoDay7.txt')
+puts Day7.fuel_for_best_pos(crabs)
