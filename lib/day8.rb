@@ -24,3 +24,6 @@ class Day8
     unique_digits
   end
 end
+
+
+puts (Day8.count_unique_numbers(Day8.load_input('../data/JoDay8.txt')))
