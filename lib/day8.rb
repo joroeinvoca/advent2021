@@ -1,4 +1,4 @@
-
+require_relative 'seven_segment'
 
 class Day8
   def self.load_input(file)
@@ -23,7 +23,18 @@ class Day8
     end
     unique_digits
   end
+
+  def self.calc_and_sum_output_values(file)
+    raw = File.readlines(file)
+    sum = 0
+
+    raw.each do |line|
+      sum += SevenSegment.new(line).decode_output
+    end
+    sum
+  end
 end
 
 
-puts (Day8.count_unique_numbers(Day8.load_input('../data/JoDay8.txt')))
+#puts (Day8.count_unique_numbers(Day8.load_input('../data/JoDay8.txt')))
+puts Day8.calc_and_sum_output_values('../data/JoDay8.txt')

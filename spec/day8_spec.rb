@@ -3,12 +3,6 @@ require_relative '../lib/day8'
 
 describe 'Day 8' do
   context 'Part 1' do
-    # 1, 4, 7, 8 use unique number of segments
-    # 1 = 2
-    # 4 = 4
-    # 7 = 3
-    # 8 = 7
-
     input = Day8.load_input('data/day8example.txt')
 
     it 'loads data' do
@@ -20,6 +14,11 @@ describe 'Day 8' do
     it '26 unique-shaped values in the display portion' do
       expect(Day8.count_unique_numbers(input)).to eq(26)
     end
+  end
 
+  context 'Part 2' do
+    it 'sum of example outputs is 61229' do
+      expect(Day8.calc_and_sum_output_values('data/day8example.txt')).to eq(61229)
+    end
   end
 end
