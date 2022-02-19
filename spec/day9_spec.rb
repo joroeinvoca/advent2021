@@ -30,4 +30,25 @@ describe 'day 9' do
       expect(Day9.sum_risk_level(input)).to eq(15)
     end
   end
+
+  context 'part 2' do
+    complete = [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]]
+    incomplete = [[1,1,1,1,1],[1,1,0,1,1],[0,1,1,1,0]]
+
+    it 'search_complete is false when not complete' do
+      expect(Day9.search_complete(incomplete)).to eq(false)
+    end
+
+    it 'search_complete is true when complete' do
+      expect(Day9.search_complete(complete))
+    end
+
+    it 'all basins' do
+      expect(Day9.find_all_basins(input)).to match_array([3, 9, 14, 9])
+    end
+
+    it '3 basins multiplied' do
+      expect(Day9.multiply_basins(input)).to eq(1134)
+    end
+  end
 end

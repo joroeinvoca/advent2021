@@ -118,6 +118,37 @@ class Day9
     low_points += find_side_low_points(data, rows, cols)
     low_points += find_middle_low_points(data, rows, cols)
   end
+
+  def self.find_all_basins(data)
+    rows = data.size
+    cols = data[0].size
+
+    processed_points = []
+    rows.times { processed_points << Array.new(cols, 0) }
+
+    until search_complete(processed_points) do
+      # find points until we hit an edge or a 9
+      for i in 0 .. rows - 1
+        for j in 0 .. cols - 1
+          if processed_points[i][j] == 0
+            if data[i][j] < 9
+
+            end
+          end
+        end
+      end
+    end
+
+  end
+
+  def self.search_complete(processed_points)
+    processed_points.each do |row|
+      if row.include?(0)
+        return false
+      end
+    end
+    true
+  end
 end
 
-puts Day9.sum_risk_level(Day9.load_data('../data/JoDay9.txt'))
+#puts Day9.sum_risk_level(Day9.load_data('../data/JoDay9.txt'))
