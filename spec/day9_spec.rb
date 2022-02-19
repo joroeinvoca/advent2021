@@ -43,7 +43,23 @@ describe 'day 9' do
       expect(Day9.search_complete(complete))
     end
 
-    it 'all basins' do
+    it 'low points in top row' do
+      expect(Day9.find_top_low_point_coords(input, 5, 10)).to match_array([[0, 1], [0, 9]])
+    end
+
+    it 'low points in bottom row' do
+      expect(Day9.find_bottom_low_point_coords(input, 5, 10)).to match_array([[4, 6]])
+    end
+
+    it 'low points on sides' do
+      expect(Day9.find_side_low_point_coords(input, 5, 10)).to match_array([])
+    end
+
+    it 'low points middles' do
+      expect(Day9.find_middle_low_point_coords(input, 5, 10)).to match_array([[2, 2]])
+    end
+
+    xit 'all basins' do
       expect(Day9.find_all_basins(input)).to match_array([3, 9, 14, 9])
     end
 
