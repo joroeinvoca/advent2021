@@ -39,6 +39,8 @@ describe 'day 9' do
     5.times { processed_points << Array.new(10, 0) }
     nines_marked = Day9.mark_all_nines(input, processed_points)
 
+    basins = Day9.find_all_basins(input)
+
     it 'search_complete is false when not complete' do
       expect(Day9.search_complete(incomplete)).to eq(false)
     end
@@ -80,11 +82,11 @@ describe 'day 9' do
     end
 
     it 'all basins' do
-      expect(Day9.find_all_basins(input)).to match_array([3, 9, 14, 9])
+      expect(basins).to match_array([3, 9, 14, 9])
     end
 
-    xit '3 basins multiplied' do
-      expect(Day9.multiply_basins(input)).to eq(1134)
+    it '3 basins multiplied' do
+      expect(Day9.multiply_largest_basins(basins)).to eq(1134)
     end
   end
 end

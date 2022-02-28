@@ -294,6 +294,10 @@ class Day9
     end
     true
   end
+
+  def self.multiply_largest_basins(basins)
+    basins.max(3).inject(:*)
+  end
 end
 
 #puts Day9.sum_risk_level(Day9.load_data('../data/JoDay9.txt'))
