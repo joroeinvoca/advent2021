@@ -215,29 +215,75 @@ class Day9
 
     #middles
     low_points += find_side_low_point_coords(data, rows, cols)
-    low_points += find_middle_low_points(data, rows, cols)
+    low_points += find_middle_low_point_coords(data, rows, cols)
+  end
+
+  def self.mark_all_nines(data, processed_points)
+    data.each_with_index do |row_val, row_ind|
+      row_val.each_with_index do |col_val, col_ind|
+        if col_val == 9
+          processed_points[row_ind][col_ind] = 1
+        end
+      end
+    end
+    processed_points
+  end
+
+  def self.check_for_basin_edges(data, processed_points, coords)
+    # check if we can go in any direction
+    new_coords = []
+    # up
+    point_row = coords[0]
+    point_col = coords[1]
+
+    if point_row > 0 && processed_points[point_row - 1][point_col] == 0
+      new_coords << [point_row - 1, point_col]
+    end
+    # right
+    if point_col + 1 < processed_points[0].size && processed_points[point_row][point_col + 1] == 0
+      new_coords << [point_row, point_col + 1]
+    end
+    # down
+    if point_row < processed_points.size - 1 && processed_points[point_row + 1][point_col] == 0
+      new_coords << [point_row + 1, point_col]
+    end
+    # left
+    if point_col > 0 && processed_points[point_row][point_col - 1] == 0
+      new_coords << [point_row, point_col - 1]
+    end
+    # return array of coords that we can check on
+    new_coords
   end
 
   def self.find_all_basins(data)
     rows = data.size
     cols = data[0].size
 
-    processed_points = []
-    rows.times { processed_points << Array.new(cols, 0) }
+    empty_processed_points = []
+    rows.times { empty_processed_points << Array.new(cols, 0) }
 
-    until search_complete(processed_points) do
-      # find points until we hit an edge or a 9
-      for i in 0 .. rows - 1
-        for j in 0 .. cols - 1
-          if processed_points[i][j] == 0
-            if data[i][j] < 9
+    # mark all 9s as processed
+    processed_points = mark_all_nines(data, empty_processed_points)
 
-            end
-          end
+    low_points = find_low_point_coords(data)
+
+    basin_sizes = []
+
+    low_points.each do |low_coords|
+      coords_to_check = [low_coords]
+      basin_size = 0
+      until coords_to_check.size == 0
+        coords_to_check += check_for_basin_edges(data, processed_points, coords_to_check[0])
+        if processed_points[coords_to_check[0][0]][coords_to_check[0][1]] != 1
+          basin_size += 1
+          processed_points[coords_to_check[0][0]][coords_to_check[0][1]] = 1
         end
+        coords_to_check.delete_at(0)
       end
+      basin_sizes << basin_size
     end
 
+    basin_sizes
   end
 
   def self.search_complete(processed_points)

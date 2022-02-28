@@ -35,6 +35,10 @@ describe 'day 9' do
     complete = [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]]
     incomplete = [[1,1,1,1,1],[1,1,0,1,1],[0,1,1,1,0]]
 
+    processed_points = []
+    5.times { processed_points << Array.new(10, 0) }
+    nines_marked = Day9.mark_all_nines(input, processed_points)
+
     it 'search_complete is false when not complete' do
       expect(Day9.search_complete(incomplete)).to eq(false)
     end
@@ -59,11 +63,27 @@ describe 'day 9' do
       expect(Day9.find_middle_low_point_coords(input, 5, 10)).to match_array([[2, 2]])
     end
 
-    xit 'all basins' do
+    it 'find all low point coords' do
+      expect(Day9.find_low_point_coords(input)).to match_array([[0, 1], [0, 9], [4, 6], [2, 2]])
+    end
+
+    it 'marks all 9s as processed' do
+      expect(nines_marked[0]).to eq([0,0,1,1,1,0,0,0,0,0])
+      expect(nines_marked[1]).to eq([0,1,0,0,0,1,0,1,0,0])
+      expect(nines_marked[2]).to eq([1,0,0,0,0,0,1,0,1,0])
+      expect(nines_marked[3]).to eq([0,0,0,0,0,1,0,0,0,1])
+      expect(nines_marked[4]).to eq([1,0,1,1,1,0,0,0,0,0])
+    end
+
+    it 'check for basin edges returns correct additional basin points' do
+      expect(Day9.check_for_basin_edges(input, nines_marked, [0, 1])).to match_array([[0, 0]])
+    end
+
+    it 'all basins' do
       expect(Day9.find_all_basins(input)).to match_array([3, 9, 14, 9])
     end
 
-    it '3 basins multiplied' do
+    xit '3 basins multiplied' do
       expect(Day9.multiply_basins(input)).to eq(1134)
     end
   end
