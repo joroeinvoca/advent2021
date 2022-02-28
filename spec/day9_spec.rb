@@ -89,4 +89,10 @@ describe 'day 9' do
       expect(Day9.multiply_largest_basins(basins)).to eq(1134)
     end
   end
+
+  context 'check statement for finding final value' do
+    it 'this works from raw file to final answer (part 2)' do
+      expect(Day9.multiply_largest_basins(Day9.find_all_basins(Day9.load_data('data/day9example.txt')))).to eq(1134)
+    end
+  end
 end

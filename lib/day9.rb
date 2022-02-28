@@ -300,4 +300,4 @@ class Day9
   end
 end
 
-#puts Day9.sum_risk_level(Day9.load_data('../data/JoDay9.txt'))
+puts Day9.multiply_largest_basins(Day9.find_all_basins(Day9.load_data('../data/JoDay9.txt')))
